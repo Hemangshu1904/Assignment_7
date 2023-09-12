@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Booklist</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    
+    
+    <div id="fetchbtn" class="d-grid gap-2 col-6 mx-auto" style="margin-top: 20px;">
+        <button type="button" class="btn btn-primary btn-lg">Fetch Books</button>
+    </div>
+    <div id="bookList">
+
+    </div>
+
+    </body>
+    <script >
+        document.addEventListener('DOMContentLoaded', function() {
+                var fetchButton = document.getElementById('fetchbtn');
+                fetchButton.addEventListener('click', fetchBooks);
+            });
+    
+        function fetchBooks() {
+            fetch('books.json') // Replace 'books.json' with your API URL if needed
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Handle the JSON data here
+                    displayBooks(data);
+                })
+                .catch(error => console.error('Error:', error));
+            }
+    
+        function displayBooks(data) {
+            var booklst = document.getElementById('bookList');
+    
+                // Create an unordered list element to hold the books
+                var ul = document.createElement('ul');
+        
+                // Loop through the books data
+                data.forEach(function(book) {
+                // Create list item for each book
+                var li = document.createElement('li');
+            
+                // Create elements for book properties (e.g., title and author)
+                var title = document.createElement('h2');
+                title.textContent = 'Title: ' + book.title;
+            
+                var author = document.createElement('p');
+                author.textContent = 'Author: ' + book.author;
+            
+                var isbn = document.createElement('p');
+                isbn.textContent = 'ISBN: ' + book.isbn;
+            
+                // Append title, author, and isbn elements to the list item
+                li.appendChild(title);
+                li.appendChild(author);
+                li.appendChild(isbn);
+            
+                // Append the list item to the unordered list
+                ul.appendChild(li);
+            });
+        
+            // Append the unordered list to the resultDiv
+            bookList.appendChild(ul);
+        }
+
+        </script>
+
+    </html>
