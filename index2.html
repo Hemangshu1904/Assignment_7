@@ -25,7 +25,7 @@
             });
     
         function fetchBooks() {
-            fetch('books.json') // Replace 'books.json' with your API URL if needed
+            fetch('books.json')
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
@@ -33,7 +33,6 @@
                     return response.json();
                 })
                 .then(data => {
-                    // Handle the JSON data here
                     displayBooks(data);
                 })
                 .catch(error => console.error('Error:', error));
@@ -42,15 +41,11 @@
         function displayBooks(data) {
             var booklst = document.getElementById('bookList');
     
-                // Create an unordered list element to hold the books
                 var ul = document.createElement('ul');
         
-                // Loop through the books data
                 data.forEach(function(book) {
-                // Create list item for each book
                 var li = document.createElement('li');
             
-                // Create elements for book properties (e.g., title and author)
                 var title = document.createElement('h2');
                 title.textContent = 'Title: ' + book.title;
             
@@ -60,16 +55,13 @@
                 var isbn = document.createElement('p');
                 isbn.textContent = 'ISBN: ' + book.isbn;
             
-                // Append title, author, and isbn elements to the list item
                 li.appendChild(title);
                 li.appendChild(author);
                 li.appendChild(isbn);
             
-                // Append the list item to the unordered list
                 ul.appendChild(li);
             });
         
-            // Append the unordered list to the resultDiv
             bookList.appendChild(ul);
         }
 
